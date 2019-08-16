@@ -1,7 +1,5 @@
 package kr.co.blossomedu.vocatest.users.domain;
 
-import java.lang.IllegalArgumentException;
-
 import java.util.regex.Pattern;
 
 public class UserValidator {

@@ -25,7 +25,7 @@ public class UserApiController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> create(@RequestBody UserCreate userCreate){
+    public ResponseEntity<UserResponse> create(@RequestBody UserCreate userCreate) {
         UserResponse userResponse = userService.save(userCreate);
         final URI uri = linkTo(UserApiController.class).slash(userResponse.getId()).toUri();
         return ResponseEntity.created(uri).body(userResponse);
