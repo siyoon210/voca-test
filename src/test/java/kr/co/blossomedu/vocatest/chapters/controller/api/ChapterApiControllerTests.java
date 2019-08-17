@@ -41,7 +41,7 @@ class ChapterApiControllerTests {
     @Test
     void 챕터_생성() {
         //given
-        final ChapterCreateRequest chapterCreateRequest = new ChapterCreateRequest(1L, "1과", 1L);
+        final ChapterCreateRequest chapterCreateRequest = new ChapterCreateRequest(1, "1과", 1L);
 
         //when
         final ChapterResponse chapterResponse = webTestClient.post().uri(uri)
