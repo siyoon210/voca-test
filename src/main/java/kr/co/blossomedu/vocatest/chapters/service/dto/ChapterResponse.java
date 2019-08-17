@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 @ToString
 @NoArgsConstructor
 public class ChapterResponse {
-    private Long sequence;
+    private Integer sequence;
     private String name;
 
     @Builder
-    public ChapterResponse(final Long sequence, final String name) {
+    public ChapterResponse(final Integer sequence, final String name) {
         this.sequence = sequence;
         this.name = name;
     }

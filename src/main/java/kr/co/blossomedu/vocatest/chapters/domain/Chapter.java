@@ -11,9 +11,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Chapter extends BaseEntity {
+public class Chapter extends BaseEntity implements Comparable<Chapter>{
     @Column
-    private Long sequence;
+    private Integer sequence;
 
     @Column
     private String name;
@@ -23,9 +23,14 @@ public class Chapter extends BaseEntity {
     private Book book;
 
     @Builder
-    public Chapter(final Long sequence, final String name, final Book book) {
+    public Chapter(final Integer sequence, final String name, final Book book) {
         this.sequence = sequence;
         this.name = name;
         this.book = book;
+    }
+
+    @Override
+    public int compareTo(final Chapter o) {
+        return sequence - o.sequence;
     }
 }

@@ -12,11 +12,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ChapterCreateRequest {
-    private Long sequence;
+    private Integer sequence;
     private String name;
     private Long bookId;
 
-    public ChapterCreateRequest(final Long sequence, final String name, final Long bookId) {
+    public ChapterCreateRequest(final Integer sequence, final String name, final Long bookId) {
         this.sequence = sequence;
         this.name = name;
         this.bookId = bookId;
