@@ -1,7 +1,7 @@
 package kr.co.blossomedu.vocatest.books.controller.api;
 
 import kr.co.blossomedu.vocatest.books.service.BookService;
-import kr.co.blossomedu.vocatest.books.service.dto.BookCreate;
+import kr.co.blossomedu.vocatest.books.service.dto.BookCreateRequest;
 import kr.co.blossomedu.vocatest.books.service.dto.BookResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +27,8 @@ public class BookApiController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponse> create(@RequestBody BookCreate bookCreate) {
-        final BookResponse bookResponse = bookService.save(bookCreate);
+    public ResponseEntity<BookResponse> create(@RequestBody BookCreateRequest bookCreateRequest) {
+        final BookResponse bookResponse = bookService.save(bookCreateRequest);
         final URI uri = linkTo(BookApiController.class).slash(bookResponse.getId()).toUri();
         return ResponseEntity.created(uri).body(bookResponse);
     }

@@ -2,7 +2,7 @@ package kr.co.blossomedu.vocatest.books.service;
 
 import kr.co.blossomedu.vocatest.books.domain.Book;
 import kr.co.blossomedu.vocatest.books.domain.BookRepository;
-import kr.co.blossomedu.vocatest.books.service.dto.BookCreate;
+import kr.co.blossomedu.vocatest.books.service.dto.BookCreateRequest;
 import kr.co.blossomedu.vocatest.books.service.dto.BookResponse;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,8 @@ public class BookService {
         return BookResponse.from(books);
     }
 
-    public BookResponse save(final BookCreate bookCreate) {
-        final Book book = bookRepository.save(bookCreate.toEntity());
+    public BookResponse save(final BookCreateRequest bookCreateRequest) {
+        final Book book = bookRepository.save(bookCreateRequest.toEntity());
         return BookResponse.from(book);
     }
 }
