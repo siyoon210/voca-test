@@ -10,11 +10,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class BookCreate {
+public class BookCreateRequest {
 
     private String name;
 
-    public BookCreate(final String name) {
+    public BookCreateRequest(final String name) {
         this.name = name;
     }
 

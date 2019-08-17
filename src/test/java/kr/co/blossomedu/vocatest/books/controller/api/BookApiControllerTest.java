@@ -1,13 +1,12 @@
 package kr.co.blossomedu.vocatest.books.controller.api;
 
-import kr.co.blossomedu.vocatest.books.service.dto.BookCreate;
+import kr.co.blossomedu.vocatest.books.service.dto.BookCreateRequest;
 import kr.co.blossomedu.vocatest.books.service.dto.BookResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.BodyInserter;
 import reactor.core.publisher.Mono;
 
 import java.util.Set;
@@ -43,13 +42,13 @@ class BookApiControllerTest {
     @Test
     void 책_생성() {
         // given
-        final BookCreate bookCreate = new BookCreate("smaple name");
+        final BookCreateRequest bookCreateRequest = new BookCreateRequest("smaple name");
 
         // when
         final BookResponse bookResponse = webTestClient.post().uri(uri)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(Mono.just(bookCreate), BookCreate.class)
+                .body(Mono.just(bookCreateRequest), BookCreateRequest.class)
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(BookResponse.class)
@@ -57,6 +56,6 @@ class BookApiControllerTest {
                 .getResponseBody();
 
         // then
-        assertThat(bookCreate.getName()).isEqualTo(bookResponse.getName());
+        assertThat(bookCreateRequest.getName()).isEqualTo(bookResponse.getName());
     }
 }
