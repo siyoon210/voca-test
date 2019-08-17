@@ -22,7 +22,7 @@ class ChapterApiControllerTests {
     private String uri = linkTo(ChapterApiController.class).toString();
 
     @Test
-    void list() {
+    void 챕터_목록_조회() {
         //given
 
         //when
@@ -36,5 +36,10 @@ class ChapterApiControllerTests {
 
         //then
         assertThat(chapterResponses).isEmpty();
+    }
+
+    @Test
+    void 챕터_생성() {
+        //given
     }
 }

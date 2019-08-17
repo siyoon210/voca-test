@@ -23,7 +23,7 @@ class BookApiControllerTest {
     private String uri = linkTo(BookApiController.class).toUri().toString();
 
     @Test
-    void 조회_성공() {
+    void 책_목록_조회_성공() {
         // given
 
         // when
