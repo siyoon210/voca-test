@@ -26,7 +26,7 @@ class ChapterApiControllerTests {
         //given
 
         //when
-        final Set chapterResponses = webTestClient.get().uri(uri)
+        final Set chapterResponses = webTestClient.get().uri(uri + "?book-id=1")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
@@ -35,7 +35,7 @@ class ChapterApiControllerTests {
                 .getResponseBody();
 
         //then
-        assertThat(chapterResponses).isEmpty();
+        assertThat(chapterResponses).isNotEmpty(); //sample data.sql이 있다는 가정하에 true
     }
 
     @Test

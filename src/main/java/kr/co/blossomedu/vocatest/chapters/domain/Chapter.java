@@ -18,7 +18,7 @@ public class Chapter extends BaseEntity implements Comparable<Chapter>{
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_id")
     private Book book;
 
