@@ -4,14 +4,14 @@ import kr.co.blossomedu.vocatest.books.domain.Book;
 import kr.co.blossomedu.vocatest.chapters.service.dto.ChapterResponse;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
-@NoArgsConstructor
+@ToString(of = {"id", "name"})
 public class BookResponse {
     private Long id;
     private String name;

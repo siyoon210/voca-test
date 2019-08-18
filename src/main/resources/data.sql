@@ -2,17 +2,17 @@ INSERT INTO book (name) VALUES ('1번 책');
 INSERT INTO book (name) VALUES ('2번 책');
 
 
-INSERT INTO chapter (sequence, name, book_id) VALUES (1, '1단원', 1);
-INSERT INTO chapter (sequence, name, book_id) VALUES (2, '2단원', 1);
-INSERT INTO chapter (sequence, name, book_id) VALUES (3, '3단원', 1);
-INSERT INTO chapter (sequence, name, book_id) VALUES (4, '4단원', 1);
-INSERT INTO chapter (sequence, name, book_id) VALUES (5, '5단원', 1);
+INSERT INTO chapter (sequence, name, book_id) VALUES (1, '1-1단원', 1);
+INSERT INTO chapter (sequence, name, book_id) VALUES (2, '1-2단원', 1);
+INSERT INTO chapter (sequence, name, book_id) VALUES (3, '1-3단원', 1);
+INSERT INTO chapter (sequence, name, book_id) VALUES (4, '1-4단원', 1);
+INSERT INTO chapter (sequence, name, book_id) VALUES (5, '1-5단원', 1);
 
-INSERT INTO chapter (sequence, name, book_id) VALUES (1, '1단원', 2);
-INSERT INTO chapter (sequence, name, book_id) VALUES (2, '2단원', 2);
-INSERT INTO chapter (sequence, name, book_id) VALUES (3, '3단원', 2);
-INSERT INTO chapter (sequence, name, book_id) VALUES (4, '4단원', 2);
-INSERT INTO chapter (sequence, name, book_id) VALUES (5, '5단원', 2);
+INSERT INTO chapter (sequence, name, book_id) VALUES (1, '2-1단원', 2);
+INSERT INTO chapter (sequence, name, book_id) VALUES (2, '2-2단원', 2);
+INSERT INTO chapter (sequence, name, book_id) VALUES (3, '2-3단원', 2);
+INSERT INTO chapter (sequence, name, book_id) VALUES (4, '2-4단원', 2);
+INSERT INTO chapter (sequence, name, book_id) VALUES (5, '2-5단원', 2);
 
 INSERT INTO vocabulary (english, korean, is_derivative,chapter_id) VALUES ('1', '단어', false , 1);
 INSERT INTO vocabulary (english, korean, is_derivative,chapter_id) VALUES ('2', '단어', false , 1);
