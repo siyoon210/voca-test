@@ -26,8 +26,8 @@ public class VocabularyService {
         if (vocabularyRequest.isDerivative()) {
             vocabularies = vocabularyRepository.findAllByChapterIdBetween(vocabularyRequest.getStartChapterId(), vocabularyRequest.getEndChapterId());
         } else {
-            vocabularies = vocabularyRepository.findAllByChapterIdBetweenAndIsDerivative(
-                    vocabularyRequest.getStartChapterId(), vocabularyRequest.getEndChapterId(), vocabularyRequest.isDerivative());
+            vocabularies = vocabularyRepository.findAllByChapterIdBetweenAndDerivativeIsFalse(
+                    vocabularyRequest.getStartChapterId(), vocabularyRequest.getEndChapterId());
         }
 
         final int size = vocabularies.size();

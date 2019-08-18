@@ -24,7 +24,7 @@ public class ChapterService {
 
     @Transactional(readOnly = true)
     public Set<ChapterResponse> findChapterResponses(final Long bookId) {
-        final Set<Chapter> chapters = chapterRepository.findByBookId(bookId);
+        final Set<Chapter> chapters = chapterRepository.findAllByBookId(bookId);
         return ChapterResponse.from(chapters);
     }
 
