@@ -18,8 +18,8 @@ public class ChapterApiController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<ChapterResponse>> list() {
-        final Set<ChapterResponse> chapterResponses = chapterService.findChapterResponses();
+    public ResponseEntity<Set<ChapterResponse>> list(@RequestParam(name = "book-id") Long bookId) {
+        final Set<ChapterResponse> chapterResponses = chapterService.findChapterResponses(bookId);
         return ResponseEntity.ok(chapterResponses);
     }
 

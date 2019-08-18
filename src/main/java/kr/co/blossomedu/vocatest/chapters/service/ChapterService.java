@@ -9,7 +9,6 @@ import kr.co.blossomedu.vocatest.chapters.service.dto.ChapterResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,8 +22,8 @@ public class ChapterService {
         this.bookRepository = bookRepository;
     }
 
-    public Set<ChapterResponse> findChapterResponses() {
-        final List<Chapter> chapters = chapterRepository.findAll();
+    public Set<ChapterResponse> findChapterResponses(Long bookId) {
+        final Set<Chapter> chapters = chapterRepository.findByBookId(bookId);
         return ChapterResponse.from(chapters);
     }
 
