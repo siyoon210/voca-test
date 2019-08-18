@@ -1,4 +1,4 @@
-package kr.co.blossomedu.vocatest.vocabularies.controller.api;
+package kr.co.blossomedu.vocatest.vocas.controller.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class VocabularyApiControllerTests {
+class VocaApiControllerTests {
 
     @Autowired
     private WebTestClient webTestClient;
 
-    private String uri = linkTo(VocabularyApiController.class).toString();
+    private String uri = linkTo(VocaApiController.class).toString();
 
     @Test
     void 단어_목록_조회() {

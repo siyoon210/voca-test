@@ -1,4 +1,4 @@
-package kr.co.blossomedu.vocatest.vocabularies.domain;
+package kr.co.blossomedu.vocatest.vocas.domain;
 
 import kr.co.blossomedu.vocatest.chapters.domain.Chapter;
 import kr.co.blossomedu.vocatest.commons.domain.BaseEntity;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Vocabulary extends BaseEntity {
+public class Voca extends BaseEntity {
     @Column(unique = true)
     private String english;
 

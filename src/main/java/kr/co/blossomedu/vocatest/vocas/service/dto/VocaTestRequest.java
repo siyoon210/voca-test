@@ -1,4 +1,4 @@
-package kr.co.blossomedu.vocatest.vocabularies.service.dto;
+package kr.co.blossomedu.vocatest.vocas.service.dto;
 
 import lombok.*;
 
