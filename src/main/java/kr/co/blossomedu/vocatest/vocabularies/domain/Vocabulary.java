@@ -5,7 +5,10 @@ import kr.co.blossomedu.vocatest.commons.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
@@ -20,7 +23,7 @@ public class Vocabulary extends BaseEntity {
     @Column
     private boolean isDerivative;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;
 }
