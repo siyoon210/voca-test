@@ -23,13 +23,13 @@ class VocabularyApiControllerTests {
     void 단어_목록_조회() {
         // given
         final int size = 8;
-        final int startChapterId = 1;
-        final int endChapterId = 3;
+        final int startChapterSeq = 1;
+        final int endChapterSeq = 3;
         final boolean derivative = false;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?size={size}&startChapterId={startChapterId}&endChapterId={endChapterId}&derivative={derivative}"
-                , size, startChapterId, endChapterId, derivative)
+        final Set vocabularyResponses = webTestClient.get().uri(uri + "?size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
+                , size, startChapterSeq, endChapterSeq, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
