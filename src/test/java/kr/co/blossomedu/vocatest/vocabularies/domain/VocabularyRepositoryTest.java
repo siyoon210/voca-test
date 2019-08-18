@@ -17,7 +17,7 @@ class VocabularyRepositoryTest {
     @Test
     void 파생어_제외_테스트1() {
         // when
-        final List<Vocabulary> vocabularies = vocabularyRepository.findAllByChapterIdBetweenAndDerivativeIsFalse(1L, 3L);
+        final List<Vocabulary> vocabularies = vocabularyRepository.findAllByChapterBetweenAndExcludeDerivative(1L, 1, 3);
 
         // then
         assertThat(vocabularies).hasSize(12);
@@ -26,9 +26,18 @@ class VocabularyRepositoryTest {
     @Test
     void 파생어_제외_테스트2() {
         // when
-        final List<Vocabulary> vocabularies = vocabularyRepository.findAllByChapterIdBetweenAndDerivativeIsFalse(2L, 2L);
+        final List<Vocabulary> vocabularies = vocabularyRepository.findAllByChapterBetweenAndExcludeDerivative(1L, 2, 2);
 
         // then
         assertThat(vocabularies).hasSize(4);
+    }
+
+    @Test
+    void 파생어_포함_테스트() {
+        // when
+        final List<Vocabulary> vocabularies = vocabularyRepository.findAllByChapterBetweenAndIncludeDerivative(1L, 1, 3);
+
+        // then
+        assertThat(vocabularies).hasSize(15);
     }
 }

@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface VocabularyRepository extends JpaRepository<Vocabulary, Long> {
-    @Query("SELECT v FROM Vocabulary v JOIN FETCH v.chapter vc WHERE vc.bookId =:bookId AND vc.sequence BETWEEN :startChapter AND :endChapter AND v.isDerivative = false")
-    List<Vocabulary> findAllByChapterBetweenAndDerivativeIsFalse(@Param("bookId") long bookId, @Param("startChapter") int startChapter, @Param("endChapter") int endChapter);
+    @Query("SELECT v FROM Vocabulary v JOIN FETCH v.chapter vc JOIN FETCH vc.book vcb WHERE vcb.id =:bookId AND vc.sequence BETWEEN :startChapter AND :endChapter AND v.isDerivative = false")
+    List<Vocabulary> findAllByChapterBetweenAndExcludeDerivative(@Param("bookId") Long bookId, @Param("startChapter") Integer startChapter, @Param("endChapter") Integer endChapter);
 
-    @Query("SELECT v FROM Vocabulary v JOIN FETCH v.chapter vc WHERE vc.bookId =:bookId AND vc.sequence BETWEEN :startChapter AND :endChapter")
-    List<Vocabulary> findAllByChapterBetween(@Param("bookId") long bookId, @Param("startChapter") int startChapter, @Param("endChapter") int endChapter);
+    @Query("SELECT v FROM Vocabulary v JOIN FETCH v.chapter vc JOIN FETCH vc.book vcb WHERE vcb.id =:bookId AND vc.sequence BETWEEN :startChapter AND :endChapter")
+    List<Vocabulary> findAllByChapterBetweenAndIncludeDerivative(@Param("bookId") Long bookId, @Param("startChapter") Integer startChapter, @Param("endChapter") Integer endChapter);
 }
