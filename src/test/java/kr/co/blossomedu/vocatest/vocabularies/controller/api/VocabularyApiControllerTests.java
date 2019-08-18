@@ -1,6 +1,5 @@
 package kr.co.blossomedu.vocatest.vocabularies.controller.api;
 
-import kr.co.blossomedu.vocatest.vocabularies.service.dto.VocabularyResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +24,7 @@ class VocabularyApiControllerTests {
         // given
         final int size = 8;
         final int startChapterId = 1;
-        final int endChapterId = 2;
+        final int endChapterId = 3;
         final boolean derivative = false;
 
         // when
