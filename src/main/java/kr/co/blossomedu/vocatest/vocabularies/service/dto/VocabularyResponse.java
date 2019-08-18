@@ -3,6 +3,10 @@ package kr.co.blossomedu.vocatest.vocabularies.service.dto;
 import kr.co.blossomedu.vocatest.vocabularies.domain.Vocabulary;
 import lombok.*;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @ToString
@@ -32,5 +36,11 @@ public class VocabularyResponse {
                 .isDerivative(vocabulary.isDerivative())
                 .chapterName(vocabulary.getChapter().getName())
                 .build();
+    }
+
+    public static List<VocabularyResponse> from(final Collection<Vocabulary> vocabularies) {
+        return vocabularies.stream()
+                .map(VocabularyResponse::from)
+                .collect(Collectors.toList());
     }
 }
