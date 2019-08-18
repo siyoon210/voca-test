@@ -1,4 +1,4 @@
-package kr.co.blossomedu.vocatest.vocabularies.controller.api;
+package kr.co.blossomedu.vocatest.vocas.controller.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +12,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class VocabularyApiControllerTests {
+class VocaApiControllerTests {
 
     @Autowired
     private WebTestClient webTestClient;
 
-    private String uri = linkTo(VocabularyApiController.class).toString();
+    private String uri = linkTo(VocaApiController.class).toString();
 
     @Test
     void 단어_목록_조회() {
         // given
+        final long bookId = 1L;
         final int size = 8;
-        final int startChapterId = 1;
-        final int endChapterId = 3;
+        final int startChapterSeq = 1;
+        final int endChapterSeq = 3;
         final boolean derivative = false;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?size={size}&startChapterId={startChapterId}&endChapterId={endChapterId}&derivative={derivative}"
-                , size, startChapterId, endChapterId, derivative)
+        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
+                , bookId, size, startChapterSeq, endChapterSeq, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
@@ -44,14 +45,15 @@ class VocabularyApiControllerTests {
     @Test
     void 파생어_포함_단어_목록_조회() {
         // given
+        final long bookId = 1L;
         final int size = 10;
-        final int startChapterId = 1;
-        final int endChapterId = 2;
+        final int startChapter = 1;
+        final int endChapter = 2;
         final boolean derivative = true;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?size={size}&startChapterId={startChapterId}&endChapterId={endChapterId}&derivative={derivative}"
-                , size, startChapterId, endChapterId, derivative)
+        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapter}&endChapter={endChapter}&includeDerivative={derivative}"
+                , bookId, size, startChapter, endChapter, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
                 .expectStatus().isOk()
