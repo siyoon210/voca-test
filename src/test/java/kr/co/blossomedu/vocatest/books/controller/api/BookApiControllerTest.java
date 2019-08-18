@@ -36,7 +36,7 @@ class BookApiControllerTest {
                 .getResponseBody();
 
         // then
-        assertThat(bookResponses).isEmpty();
+        assertThat(bookResponses).isNotEmpty(); //sample data.sql이 있다는 가정하에 true
     }
 
     @Test
