@@ -1,14 +1,16 @@
 package kr.co.blossomedu.vocatest.chapters.service.dto;
 
 import kr.co.blossomedu.vocatest.chapters.domain.Chapter;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 public class ChapterResponse {

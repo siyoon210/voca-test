@@ -5,12 +5,14 @@ import kr.co.blossomedu.vocatest.chapters.service.dto.ChapterResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
+@ToString(of = {"id", "name"})
 @NoArgsConstructor
 public class BookResponse {
     private Long id;
