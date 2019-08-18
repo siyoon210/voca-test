@@ -2,7 +2,7 @@ package kr.co.blossomedu.vocatest.vocabularies.service;
 
 import kr.co.blossomedu.vocatest.vocabularies.domain.Vocabulary;
 import kr.co.blossomedu.vocatest.vocabularies.domain.VocabularyRepository;
-import kr.co.blossomedu.vocatest.vocabularies.service.dto.VocabularyRequest;
+import kr.co.blossomedu.vocatest.vocabularies.service.dto.VocaTestRequest;
 import kr.co.blossomedu.vocatest.vocabularies.service.dto.VocabularyResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +21,13 @@ public class VocabularyService {
         this.vocabularyRepository = vocabularyRepository;
     }
 
-    public Set<VocabularyResponse> finAllByChapterRange(final VocabularyRequest vocabularyRequest) {
+    public Set<VocabularyResponse> finAllByChapterRange(final VocaTestRequest vocaTestRequest) {
         List<Vocabulary> vocabularies;
-        if (vocabularyRequest.isDerivative()) {
-            vocabularies = vocabularyRepository.findAllByChapterIdBetween(vocabularyRequest.getStartChapterId(), vocabularyRequest.getEndChapterId());
+        if (vocaTestRequest.isIncludeDerivative()) {
+            vocabularies = vocabularyRepository.findAllByChapterBetween(vocaTestRequest.getBookId(), vocaTestRequest.getStartChapter(), vocaTestRequest.getEndChapter());
         } else {
-            vocabularies = vocabularyRepository.findAllByChapterIdBetweenAndDerivativeIsFalse(
-                    vocabularyRequest.getStartChapterId(), vocabularyRequest.getEndChapterId());
+            vocabularies = vocabularyRepository.findAllByChapterBetweenAndDerivativeIsFalse(
+                    vocaTestRequest.getBookId(), vocaTestRequest.getStartChapter(), vocaTestRequest.getEndChapter());
         }
 
         final int size = vocabularies.size();
@@ -35,7 +35,7 @@ public class VocabularyService {
 
         //TODO 요청한 size가 데이터보다 많은 경우 처리
         //TODO 최적 알고리즘
-        while (vocabularyResponses.size() < vocabularyRequest.getSize()) {
+        while (vocabularyResponses.size() < vocaTestRequest.getSize()) {
             final int index = ThreadLocalRandom.current().nextInt(size);
             vocabularyResponses.add(VocabularyResponse.from(vocabularies.get(index)));
         }
