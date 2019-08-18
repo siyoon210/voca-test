@@ -27,7 +27,7 @@ public class BookApiController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponse> create(@RequestBody BookCreateRequest bookCreateRequest) {
+    public ResponseEntity<BookResponse> create(@RequestBody final BookCreateRequest bookCreateRequest) {
         final BookResponse bookResponse = bookService.save(bookCreateRequest);
         final URI uri = linkTo(BookApiController.class).slash(bookResponse.getId()).toUri();
         return ResponseEntity.created(uri).body(bookResponse);
