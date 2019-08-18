@@ -7,17 +7,17 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 public class VocaTestRequest {
-    private static final int DEFAULT_SIZE = 30;
+    private static final Integer DEFAULT_SIZE = 30;
     private static final boolean DEFAULT_DERIVATIVE_CASE = false;
 
-    private long bookId;
-    private int startChapter;
-    private int endChapter;
-    private int size = DEFAULT_SIZE;
+    private Long bookId;
+    private Integer startChapter;
+    private Integer endChapter;
+    private Integer size = DEFAULT_SIZE;
     private boolean isIncludeDerivative = DEFAULT_DERIVATIVE_CASE;
 
     @Builder
-    public VocaTestRequest(final long bookId, final int startChapter, final int endChapter, final int size, final boolean isIncludeDerivative) {
+    public VocaTestRequest(final Long bookId, final Integer startChapter, final Integer endChapter, final Integer size, final boolean isIncludeDerivative) {
         this.bookId = bookId;
         this.startChapter = startChapter;
         this.endChapter = endChapter;
