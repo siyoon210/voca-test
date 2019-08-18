@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -32,6 +33,6 @@ public class VocabularyService {
         //TODO 요청한 size가 데이터보다 많은 경우 처리
         Collections.shuffle(vocabularies);
 
-        return VocabularyResponse.from(vocabularies);
+        return VocabularyResponse.from(vocabularies.stream().limit(vocaTestRequest.getSize()).collect(Collectors.toList()));
     }
 }
