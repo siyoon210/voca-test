@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>단어 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+</head>
+<body>
+<p data-th-text="${book.name}"></p>
+<div id="test-range-form">
+    <p>범위</p>
+    <input type="number" v-model="start"/> 부터 <input type="number" v-model="end"/> 까지<br>
+    <input type="checkbox" v-model="includeDerivative"> 파포 여부 <br>
+    <button v-on:click="startTest">시작하기</button>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#test-range-form',
+        data: {
+            bookId: [[${book.id}]],
+            start: 1,
+            end: 3,
+            includeDerivative: false
+        },
+        methods: {
+            startTest: function () {
+                var self = this;
+                var url = function () {
+                    return '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end + '&derivative=' + self.includeDerivative;
+                };
+
+                console.log(url());
+                axios.get(url())
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        self.answer = '에러! API 요청에 오류가 있습니다. ' + error
+                    })
+            }
+        }
+    })
+</script>
+</html>

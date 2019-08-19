@@ -9,27 +9,27 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class VocaApiControllerTests {
+class VocaTestApiControllerTests {
 
     @Autowired
     private WebTestClient webTestClient;
 
-    private String uri = linkTo(VocaApiController.class).toString();
+    //    private String uri = linkTo(VocaTestApiController.class).toString(); ///api/books/{bookId}/vocas
+    private String uri = "/api/books/{bookId}/vocas";
 
     @Test
     void 단어_목록_조회() {
         // given
         final long bookId = 1L;
-        final int size = 8;
+        final int size = 12;
         final int startChapterSeq = 1;
         final int endChapterSeq = 3;
         final boolean derivative = false;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
+        final Set vocaResponses = webTestClient.get().uri(uri + "?size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
                 , bookId, size, startChapterSeq, endChapterSeq, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
@@ -39,7 +39,7 @@ class VocaApiControllerTests {
                 .getResponseBody();
 
         // then
-        assertThat(vocabularyResponses).hasSize(8);
+        assertThat(vocaResponses).hasSize(12);
     }
 
     @Test
@@ -52,7 +52,7 @@ class VocaApiControllerTests {
         final boolean derivative = true;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapter}&endChapter={endChapter}&includeDerivative={derivative}"
+        final Set vocaResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapter}&endChapter={endChapter}&includeDerivative={derivative}"
                 , bookId, size, startChapter, endChapter, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
@@ -62,6 +62,6 @@ class VocaApiControllerTests {
                 .getResponseBody();
 
         // then
-        assertThat(vocabularyResponses).hasSize(10);
+        assertThat(vocaResponses).hasSize(10);
     }
 }

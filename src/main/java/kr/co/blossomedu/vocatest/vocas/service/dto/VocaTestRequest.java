@@ -1,6 +1,11 @@
 package kr.co.blossomedu.vocatest.vocas.service.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Setter
 @Getter
@@ -16,12 +21,24 @@ public class VocaTestRequest {
     private Integer size = DEFAULT_SIZE;
     private boolean isIncludeDerivative = DEFAULT_DERIVATIVE_CASE;
 
-    @Builder
-    public VocaTestRequest(final Long bookId, final Integer startChapter, final Integer endChapter, final Integer size, final boolean isIncludeDerivative) {
-        this.bookId = bookId;
-        this.startChapter = startChapter;
-        this.endChapter = endChapter;
+    @ModelAttribute("bookId")
+    public Long prepareBookId(@PathVariable Long bookId) {
+        return bookId;
+    }
+
+    public void setStart(Integer start) {
+        this.startChapter = start;
+    }
+
+    public void setEnd(Integer end) {
+        this.endChapter = end;
+    }
+
+    public void setSize(Integer size) {
         this.size = size;
-        this.isIncludeDerivative = isIncludeDerivative;
+    }
+
+    public void setDerivative(boolean derivative) {
+        this.isIncludeDerivative = derivative;
     }
 }

@@ -38,8 +38,8 @@ public class VocaResponse {
                 .build();
     }
 
-    public static List<VocaResponse> from(final Collection<Voca> vocabularies) {
-        return vocabularies.stream()
+    public static List<VocaResponse> from(final Collection<Voca> vocas) {
+        return vocas.stream()
                 .map(VocaResponse::from)
                 .collect(Collectors.toList());
     }
