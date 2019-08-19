@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -26,9 +25,10 @@ class BookRepositoryTest {
     @Test
     void findById() {
         // when
-        final Optional<Book> book = bookRepository.findById(1L);
+        final Book book = bookRepository.findById(1L).orElseThrow(RuntimeException::new);
 
         // then
-        assertThat(book.orElseThrow(RuntimeException::new).getChapters()).hasSize(5); //sample data.sql 기준
+        assertThat(book.getChapters()).hasSize(5); //sample data.sql 기준
+        assertThat(book).isNotNull();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -23,6 +24,12 @@ public class BookService {
     public Set<BookResponse> findBookResponses() {
         final List<Book> books = bookRepository.findAll();
         return BookResponse.from(books);
+    }
+
+    @Transactional(readOnly = true)
+    public BookResponse findBook(Long bookId) {
+        final Optional<Book> book = bookRepository.findById(bookId);
+        return BookResponse.from(book.orElseThrow(IllegalArgumentException::new));
     }
 
     public BookResponse save(final BookCreateRequest bookCreateRequest) {
