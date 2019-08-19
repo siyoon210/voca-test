@@ -29,7 +29,7 @@ class VocaApiControllerTests {
         final boolean derivative = false;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
+        final Set vocaResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapterSeq}&endChapter={endChapterSeq}&includeDerivative={derivative}"
                 , bookId, size, startChapterSeq, endChapterSeq, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
@@ -39,7 +39,7 @@ class VocaApiControllerTests {
                 .getResponseBody();
 
         // then
-        assertThat(vocabularyResponses).hasSize(8);
+        assertThat(vocaResponses).hasSize(8);
     }
 
     @Test
@@ -52,7 +52,7 @@ class VocaApiControllerTests {
         final boolean derivative = true;
 
         // when
-        final Set vocabularyResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapter}&endChapter={endChapter}&includeDerivative={derivative}"
+        final Set vocaResponses = webTestClient.get().uri(uri + "?bookId={bookId}&size={size}&startChapter={startChapter}&endChapter={endChapter}&includeDerivative={derivative}"
                 , bookId, size, startChapter, endChapter, derivative)
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .exchange()
@@ -62,6 +62,6 @@ class VocaApiControllerTests {
                 .getResponseBody();
 
         // then
-        assertThat(vocabularyResponses).hasSize(10);
+        assertThat(vocaResponses).hasSize(10);
     }
 }

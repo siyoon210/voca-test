@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vocabularies")
+@RequestMapping("/vocas")
 public class VocaApiController {
 
     private final VocaService vocaService;
