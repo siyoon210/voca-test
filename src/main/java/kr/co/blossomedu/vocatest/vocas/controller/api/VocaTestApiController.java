@@ -4,21 +4,23 @@ import kr.co.blossomedu.vocatest.vocas.service.VocaService;
 import kr.co.blossomedu.vocatest.vocas.service.dto.VocaResponse;
 import kr.co.blossomedu.vocatest.vocas.service.dto.VocaTestRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/vocas")
-public class VocaApiController {
+@RequestMapping("/api/books/{bookId}/vocas")
+public class VocaTestApiController {
 
     private final VocaService vocaService;
 
-    public VocaApiController(final VocaService vocaService) {
+    public VocaTestApiController(final VocaService vocaService) {
         this.vocaService = vocaService;
+    }
+
+    @ModelAttribute("bookId")
+    public Long prepareBookId(@PathVariable Long bookId) {
+        return bookId;
     }
 
     @GetMapping
