@@ -1,6 +1,8 @@
 package kr.co.blossomedu.vocatest.vocas.service.dto;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Setter
 @Getter
@@ -23,5 +25,10 @@ public class VocaTestRequest {
         this.endChapter = endChapter;
         this.size = size;
         this.isIncludeDerivative = isIncludeDerivative;
+    }
+
+    @ModelAttribute("bookId")
+    public Long prepareBookId(@PathVariable Long bookId) {
+        return bookId;
     }
 }
