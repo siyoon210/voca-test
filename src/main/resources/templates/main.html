@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>단어 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<p data-th-text="${book.name}"></p>
+<div id="test-range-form">
+    <p>범위</p>
+    <input type="number" v-model="start"/> 부터 <input type="number" v-model="end"/> 까지<br>
+    <input type="checkbox" v-model="includeDerivative"> 파포 여부 <br>
+    <button v-on:click="startTest">시작하기</button>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#test-range-form',
+        data: {
+            bookId: [[${book.id}]],
+            start: 1,
+            end: 100,
+            includeDerivative: false
+        },
+        methods: {
+            startTest: function () {
+                alert(this.start + '~' + this.end + this.includeDerivative+" "+this.bookId);
+            }
+        }
+    })
+</script>
+</html>
