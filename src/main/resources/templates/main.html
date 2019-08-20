@@ -3,29 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>단어 테스트</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 도움되는 콘솔 경고를 포함한 개발 버전 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 상용버전, 속도와 용량이 최적화됨. -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
     <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
 </head>
 <body>
 <p data-th-text="${book.name}"></p>
-<div id="test-range-form">
-    <p>범위</p>
-    <input type="number" v-model="start"/> 부터 <input type="number" v-model="end"/> 까지<br>
-    <input type="checkbox" v-model="includeDerivative"> 파포 여부 <br>
-    <button v-on:click="startTest">시작하기</button>
+<div id="voca-test">
+    <div v-show="step === 'form'">
+        <p>범위</p>
+        <input type="number" v-model="start"/> 부터 <input type="number" v-model="end"/> 까지<br>
+        <input type="checkbox" v-model="includeDerivative"> 파포 여부 <br>
+        <button v-on:click="requestTestData">요청하기</button>
+    </div>
+    <button v-show="step === 'ready'" v-on:click="startTest">시작하기!</button>
+    <p v-show="step === 'progress'">{{vocaList[index]}}</p>
+    <button v-show="step === 'end'" v-on:click="openCorrectAnswer">정답확인</button>
+    <div v-show="step === 'openCorrectAnswer'">
+        <ol>
+            <li v-for="voca in vocaList">
+                {{voca.english}}    {{voca.korean}}     {{voca.derivative}}     {{voca.chapterName}}
+            </li>
+        </ol>
+    </div>
+    <div>{{step}}</div>
 </div>
+
 </body>
 <script>
     var vm = new Vue({
-        el: '#test-range-form',
+        el: '#voca-test',
         data: {
+            index: 0,
+            step: 'form',
             bookId: [[${book.id}]],
             start: 1,
             end: 3,
-            includeDerivative: false
+            includeDerivative: false,
+            vocaList: []
         },
         methods: {
-            startTest: function () {
+            requestTestData: function () {
                 var self = this;
                 var url = function () {
                     return '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end + '&derivative=' + self.includeDerivative;
@@ -35,10 +55,28 @@
                 axios.get(url())
                     .then(function (response) {
                         console.log(response);
+                        self.step = 'ready';
+                        self.vocaList = response.data;
+                        console.log(self.vocaList);
                     })
                     .catch(function (error) {
                         self.answer = '에러! API 요청에 오류가 있습니다. ' + error
                     })
+            },
+            startTest: function () {
+                this.step = 'progress';
+                var self = this;
+                var start = setInterval(function () {
+                    self.index++;
+                    if (self.index >= self.vocaList.length - 1) {
+                        clearInterval(start);
+                        self.step = 'end';
+                    }
+                }, 1000);
+
+            },
+            openCorrectAnswer: function () {
+                this.step = 'openCorrectAnswer';
             }
         }
     })
