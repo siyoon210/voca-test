@@ -42,17 +42,26 @@
             start: 1,
             end: 3,
             includeDerivative: false,
+            size:'',
             vocaList: []
         },
         methods: {
             requestTestData: function () {
                 var self = this;
-                var url = function () {
-                    return '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end + '&derivative=' + self.includeDerivative;
+                var requestUrl = function () {
+                    var url = '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end;
+                    if (this.includeDerivative) {
+                        url += '&derivative=true';
+                    }
+                    if (this.size.length) {
+                        url += '&size=' + this.size;
+                    }
+
+                    return url;
                 };
 
-                console.log(url());
-                axios.get(url())
+                console.log(requestUrl());
+                axios.get(requestUrl())
                     .then(function (response) {
                         console.log(response);
                         self.step = 'ready';
@@ -66,6 +75,7 @@
             startTest: function () {
                 this.step = 'progress';
                 var self = this;
+                //TODO 별도의 컴포넌트를 선언해서 카로셀로 빌드 한다음에 보여주는 방식은 어떨까
                 var start = setInterval(function () {
                     self.index++;
                     if (self.index >= self.vocaList.length - 1) {
