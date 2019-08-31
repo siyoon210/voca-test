@@ -24,15 +24,31 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body class="container">
-<p data-th-text="${book.name}"></p>
-<div id="voca-test">
-    <div v-show="step === 'form'">
-        <p>범위</p>
-        <input type="number" v-model="start"/> 부터 <input type="number" v-model="end"/> 까지<br>
-        <input type="checkbox" v-model="includeDerivative"> 파포 여부 <br>
-        <button v-on:click="requestTestData">요청하기</button>
+<body>
+<div id="voca-test" class="d-flex vh-100">
+    <div v-show="step === 'form'" class="form-row mx-auto col-md-6 d-flex w-100 justify-content-center align-self-center">
+        <div class="form-group col-md-6">
+            <label>시작 범위</label>
+            <input v-model="start" type="number" class="form-control"/>
+        </div>
+        <div class="form-group col-md-6">
+            <label>끝 범위</label>
+            <input v-model="end" type="number" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input v-model="includeDerivative" class="form-check-input" type="checkbox">
+                <label class="form-check-label">
+                    파생어 포함
+                </label>
+            </div>
+        </div><br>
+        <div class="form-group">
+            <button v-on:click="requestTestData" class="btn btn-primary" type="submit">요청하기</button>
+        </div>
     </div>
+
     <button v-show="step === 'ready'" v-on:click="startTest">시작하기!</button>
     <p v-if="step === 'progress'">{{vocaList[index].english}}</p>
     <button v-show="step === 'end'" v-on:click="openCorrectAnswer">정답확인</button>
@@ -43,7 +59,6 @@
             </li>
         </ol>
     </div>
-    <div>{{step}}</div>
 </div>
 
 </body>
