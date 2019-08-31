@@ -24,7 +24,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="container">
 <p data-th-text="${book.name}"></p>
 <div id="voca-test">
     <div v-show="step === 'form'">
@@ -34,7 +34,7 @@
         <button v-on:click="requestTestData">요청하기</button>
     </div>
     <button v-show="step === 'ready'" v-on:click="startTest">시작하기!</button>
-    <p v-show="step === 'progress'">{{vocaList[index]}}</p>
+    <p v-if="step === 'progress'">{{vocaList[index].english}}</p>
     <button v-show="step === 'end'" v-on:click="openCorrectAnswer">정답확인</button>
     <div v-show="step === 'openCorrectAnswer'">
         <ol>
