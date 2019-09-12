@@ -11,53 +11,80 @@
     <!-- ajax 통신 -->
     <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
 
-    <!-- 부트스트랩 cdn 적용-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-<div id="voca-test" class="d-flex vh-100">
-    <div v-show="step === 'form'" class="form-row mx-auto col-md-6 d-flex w-100 justify-content-center align-self-center">
-        <div class="form-group col-md-6">
-            <label>시작 범위</label>
-            <input v-model="start" type="number" class="form-control"/>
-        </div>
-        <div class="form-group col-md-6">
-            <label>끝 범위</label>
-            <input v-model="end" type="number" class="form-control"/>
-        </div>
-
-        <div class="form-group">
-            <div class="form-check">
-                <input v-model="includeDerivative" class="form-check-input" type="checkbox">
-                <label class="form-check-label">
-                    파생어 포함
-                </label>
-            </div>
-        </div><br>
-        <div class="form-group">
-            <button v-on:click="requestTestData" class="btn btn-primary" type="submit">요청하기</button>
+<div id="voca-test" class="container">
+    <div v-show="step === 'form'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <form class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <h2>범위 선택</h2>
+                <div class="form-group col-xs-6">
+                    <label for="start" class="sr-only">시작</label>
+                    <input v-model="start" type="number" class="form-control" id="start" placeholder="시작">
+                </div>
+                <div class="form-group col-xs-6">
+                    <label for="end" class="sr-only">끝</label>
+                    <input v-model="end" type="number" class="form-control" id="end" placeholder="끝">
+                </div>
+                <div class="form-group col-xs-12">
+                    <label for="derivative"><input v-model="includeDerivative" type="checkbox" id="derivative"> 파생어
+                        포함</label>
+                </div>
+                <div class="form-group">
+                    <input v-on:click="requestTestData" type="button" value="선택" class="btn btn-primary">
+                </div>
+            </form>
         </div>
     </div>
 
-    <button v-show="step === 'ready'" v-on:click="startTest">시작하기!</button>
-    <p v-if="step === 'progress'">{{vocaList[index].english}}</p>
-    <button v-show="step === 'end'" v-on:click="openCorrectAnswer">정답확인</button>
-    <div v-show="step === 'openCorrectAnswer'">
-        <ol>
-            <li v-for="voca in vocaList">
-                {{voca.english}} {{voca.korean}} {{voca.derivative}} {{voca.chapterName}}
-            </li>
-        </ol>
+    <div v-show="step === 'ready'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <h2 class="text-center">워드마스터</h2>
+                <p class="text-center">1~3과 (파생어 포함)</p>
+                <input v-on:click="startTest" type="button" value="시작하기" class="btn btn-primary center-block"/>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="step === 'progress'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <h1 v-if="step === 'progress'" class="text-center">{{vocaList[index].english}}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="step === 'end'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <input v-on:click="openCorrectAnswer" type="button" value="정답확인" class="btn btn-primary center-block"/>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="step === 'openCorrectAnswer'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <ol>
+                    <li v-for="voca in vocaList">
+                        {{voca.english}} {{voca.korean}} {{voca.derivative}} {{voca.chapterName}}
+                    </li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -120,4 +147,15 @@
         }
     })
 </script>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Placeholder -->
+<script src="js/jquery.placeholder.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Main JS -->
+<script src="js/main.js"></script>
 </html>
