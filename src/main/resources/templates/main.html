@@ -51,22 +51,40 @@
 
     <div v-show="step === 'ready'" class="row">
         <div class="col-md-8 col-md-offset-2">
-            <form class="fh5co-form animate-box" data-animate-effect="fadeIn">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
                 <h2 class="text-center">워드마스터</h2>
                 <p class="text-center">1~3과 (파생어 포함)</p>
-                <button v-on:click="startTest" type="button" value="시작하기" class="btn btn-primary center-block">시작하기!</button>
-            </form>
+                <input v-on:click="startTest" type="button" value="시작하기" class="btn btn-primary center-block"/>
+            </div>
         </div>
     </div>
 
-    <p v-if="step === 'progress'">{{vocaList[index].english}}</p>
-    <button v-show="step === 'end'" v-on:click="openCorrectAnswer">정답확인</button>
-    <div v-show="step === 'openCorrectAnswer'">
-        <ol>
-            <li v-for="voca in vocaList">
-                {{voca.english}} {{voca.korean}} {{voca.derivative}} {{voca.chapterName}}
-            </li>
-        </ol>
+    <div v-show="step === 'progress'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <h1 v-if="step === 'progress'" class="text-center">{{vocaList[index].english}}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="step === 'end'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <input v-on:click="openCorrectAnswer" type="button" value="정답확인" class="btn btn-primary center-block"/>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="step === 'openCorrectAnswer'" class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <ol>
+                    <li v-for="voca in vocaList">
+                        {{voca.english}} {{voca.korean}} {{voca.derivative}} {{voca.chapterName}}
+                    </li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>
 
