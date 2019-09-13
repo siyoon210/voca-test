@@ -78,11 +78,24 @@
     <div v-show="step === 'openCorrectAnswer'" class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <ol>
-                    <li v-for="voca in vocaList">
-                        {{voca.english}} {{voca.korean}} {{voca.derivative}} {{voca.chapterName}}
-                    </li>
-                </ol>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">단어</th>
+                        <th scope="col">정답</th>
+                        <th scope="col">파생어</th>
+                        <th scope="col">챕터</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="voca in vocaList">
+                        <td>{{voca.english}}</td>
+                        <td>{{voca.korean}}</td>
+                        <td>{{voca.derivative}}</td>
+                        <td>{{voca.chapterName}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
