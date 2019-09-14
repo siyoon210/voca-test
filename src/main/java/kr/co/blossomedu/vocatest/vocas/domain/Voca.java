@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @NoArgsConstructor
 public class Voca extends BaseEntity {
-    @Column(unique = true)
+    @Column //unique = true 설정을 두면 워드마스터 샘플데이터에 중복된 단어가 있어서 충돌남
     private String english;
 
     @Column
