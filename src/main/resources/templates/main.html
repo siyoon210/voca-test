@@ -147,6 +147,10 @@
         methods: {
             requestTestData: function () {
                 var self = this;
+                console.log('end :', self.end);
+                if (self.end > 50) {
+                    self.end = 50;
+                }
                 var requestUrl = function () {
                     var url = '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end;
                     if (self.includeDerivative) {
