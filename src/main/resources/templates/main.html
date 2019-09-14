@@ -116,6 +116,8 @@
 
 </body>
 <script>
+    var sound = new Audio('sound/beep-07.wav');
+
     var vm = new Vue({
         el: '#voca-test',
         data: {
@@ -156,6 +158,7 @@
                     })
             },
             startTest: function () {
+                sound.play().then();
                 this.step = 'progress';
                 var self = this;
                 var start = setInterval(function () {
@@ -164,8 +167,9 @@
                         self.step = 'end';
                         return;
                     }
+                    sound.play().then();
                     self.index++;
-                }, 1000);
+                }, 3000);
             },
             openCorrectAnswer: function () {
                 this.step = 'openCorrectAnswer';
