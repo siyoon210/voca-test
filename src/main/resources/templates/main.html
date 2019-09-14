@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>단어 테스트</title>
@@ -92,7 +92,8 @@
                         <tbody>
                         <tr v-for="(voca, index) in vocaList">
                             <td>{{index + 1}}</td>
-                            <td>{{voca.english}}</td>
+                            <td><a v-bind:href="'https://endic.naver.com/search.nhn?sLn=kr&query='+voca.english" target="_blank">{{voca.english}}</a>
+                            </td>
                             <td>{{voca.korean}}</td>
                             <td>{{voca.derivative}}</td>
                             <td>{{voca.chapterName}}</td>
