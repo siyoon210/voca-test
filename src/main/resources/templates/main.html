@@ -49,21 +49,35 @@
         </div>
     </div>
 
-    <div v-show="step === 'ready'" class="row">
-        <div>
+    <div v-show="step === 'ready'">
+        <div class="row">
             <div style="height: 80vh" class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <h2 style="top: 20vh; position: relative" class="text-center">워드마스터</h2>
-                <p style="top: 20vh; position: relative" class="text-center">(샘플) 1~3과 (파생어 포함)</p>
+                <h2 style="top: 20vh; position: relative" class="text-center">WordMaster</h2>
+                <p style="top: 20vh; position: relative" class="text-center">{{start}}과 ~ {{end}}과<span v-show="includeDerivative"> (파생어 포함)</span></p>
                 <input v-on:click="startTest" style="top: 25vh; position: relative" type="button" value="시작하기" class="btn btn-primary center-block"/>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px" class="row">
+            <div class="col-md-12 text-center">
+                <ul class="menu">
+                    <li><a href="/">범위 선택 화면으로</a></li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div v-show="step === 'progress'" class="row">
-        <div>
-            <div style="height: 100vh; margin-top: 0em;" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+    <div v-show="step === 'progress'">
+        <div class="row">
+            <div style="height: 90vh; margin-top: 0em;" class="fh5co-form animate-box" data-animate-effect="fadeIn">
                 <p style="top:26%; position:relative; font-size: 1.8em" class="text-center">{{index + 1}}</p>
                 <h1 v-if="step === 'progress'" style="top:28%; position: relative; font-size: 6em" class="text-center">{{vocaList[index].english}}</h1>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px" class="row">
+            <div class="col-md-12 text-center">
+                <ul class="menu">
+                    <li><a href="/">범위 선택 화면으로</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -173,7 +187,7 @@
                     }
                     sound.play().then();
                     self.index++;
-                }, 3000);
+                }, 1000);
             },
             openCorrectAnswer: function () {
                 this.step = 'openCorrectAnswer';
