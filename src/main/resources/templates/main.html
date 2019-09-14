@@ -53,7 +53,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
                 <h2 class="text-center">워드마스터</h2>
-                <p class="text-center">1~3과 (파생어 포함)</p>
+                <p class="text-center">(샘플) 1~3과 (파생어 포함)</p>
                 <input v-on:click="startTest" type="button" value="시작하기" class="btn btn-primary center-block"/>
             </div>
         </div>
@@ -120,7 +120,7 @@
                 var self = this;
                 var requestUrl = function () {
                     var url = '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end;
-                    if (this.includeDerivative) {
+                    if (self.includeDerivative) {
                         url += '&derivative=true';
                     }
                     if (this.size !== undefined) {
@@ -152,7 +152,7 @@
                         return;
                     }
                     self.index++;
-                }, 1000);
+                }, 100);
             },
             openCorrectAnswer: function () {
                 this.step = 'openCorrectAnswer';
