@@ -75,29 +75,38 @@
         </div>
     </div>
 
-    <div v-show="step === 'openCorrectAnswer'" class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">단어</th>
-                        <th scope="col">정답</th>
-                        <th scope="col">파생어</th>
-                        <th scope="col">챕터</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(voca, index) in vocaList">
-                        <td>{{index + 1}}</td>
-                        <td>{{voca.english}}</td>
-                        <td>{{voca.korean}}</td>
-                        <td>{{voca.derivative}}</td>
-                        <td>{{voca.chapterName}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+    <div v-show="step === 'openCorrectAnswer'">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">단어</th>
+                            <th scope="col">정답</th>
+                            <th scope="col">파생어</th>
+                            <th scope="col">챕터</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(voca, index) in vocaList">
+                            <td>{{index + 1}}</td>
+                            <td>{{voca.english}}</td>
+                            <td>{{voca.korean}}</td>
+                            <td>{{voca.derivative}}</td>
+                            <td>{{voca.chapterName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="menu">
+                    <li><a href="/">범위 선택 화면으로</a></li>
+                </ul>
             </div>
         </div>
     </div>
