@@ -152,6 +152,10 @@
                         self.step = 'ready';
                         self.vocaList = response.data;
                         console.log(self.vocaList);
+                        if(self.vocaList.length <= 0){
+                            alert('입력 오류');
+                            window.location.reload();
+                        }
                     })
                     .catch(function (error) {
                         self.answer = '에러! API 요청에 오류가 있습니다. ' + error
