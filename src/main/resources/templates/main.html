@@ -167,6 +167,9 @@
             requestTestData: function () {
                 var self = this;
                 console.log('end :', self.end);
+                if (self.start <= 0) {
+                    self.start = 1;
+                }
                 if (self.end > 50) {
                     self.end = 50;
                 }
