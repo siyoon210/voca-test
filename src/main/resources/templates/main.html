@@ -24,6 +24,25 @@
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
 </head>
+<style>
+    @media (max-width: 700px) {
+        .voca-text{
+            font-size: 4.5em;
+        }
+    }
+
+    @media (min-width: 700px) {
+        .voca-text{
+            font-size: 5em;
+        }
+    }
+
+    @media (min-width: 800px) {
+        .voca-text{
+            font-size: 6em;
+        }
+    }
+</style>
 <body>
 <div id="voca-test" class="container">
     <div v-show="step === 'form'" class="row">
@@ -49,35 +68,50 @@
         </div>
     </div>
 
-    <div v-show="step === 'ready'" class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <h2 class="text-center">워드마스터</h2>
-                <p class="text-center">(샘플) 1~3과 (파생어 포함)</p>
-                <input v-on:click="startTest" type="button" value="시작하기" class="btn btn-primary center-block"/>
+    <div v-show="step === 'ready'">
+        <div class="row">
+            <div style="height: 80vh" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <h2 style="top: 20vh; position: relative" class="text-center">WordMaster</h2>
+                <p style="top: 20vh; position: relative" class="text-center">{{start}}과 ~ {{end}}과<span v-show="includeDerivative"> (파생어 포함)</span></p>
+                <input v-on:click="startTest" style="top: 25vh; position: relative" type="button" value="시작하기" class="btn btn-primary center-block"/>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px" class="row">
+            <div class="col-md-12 text-center">
+                <ul class="menu">
+                    <li><a href="/">범위 선택 화면으로</a></li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div v-show="step === 'progress'" class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <h1 v-if="step === 'progress'" class="text-center">{{vocaList[index].english}}</h1>
+    <div v-show="step === 'progress'">
+        <div class="row">
+            <div style="height: 90vh; margin-top: 0em;" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <p style="top:26%; position:relative; font-size: 1.8em" class="text-center">{{index + 1}}</p>
+                <h1 v-if="step === 'progress'" style="top:28%; position: relative;" class="voca-text text-center">{{vocaList[index].english}}</h1>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px" class="row">
+            <div class="col-md-12 text-center">
+                <ul class="menu">
+                    <li><a href="/">범위 선택 화면으로</a></li>
+                </ul>
             </div>
         </div>
     </div>
 
     <div v-show="step === 'end'" class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
-                <input v-on:click="openCorrectAnswer" type="button" value="정답확인" class="btn btn-primary center-block"/>
+        <div>
+            <div style="height: 80vh" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+                <input v-on:click="openCorrectAnswer" style="top: 30vh; position: relative" type="button" value="정답확인" class="btn btn-primary center-block"/>
             </div>
         </div>
     </div>
 
     <div v-show="step === 'openCorrectAnswer'">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="fh5co-form animate-box" data-animate-effect="fadeIn">
                     <table class="table">
                         <thead>
@@ -103,7 +137,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div style="margin-bottom: 15px" class="row">
             <div class="col-md-12 text-center">
                 <ul class="menu">
                     <li><a href="/">범위 선택 화면으로</a></li>
@@ -115,6 +149,8 @@
 
 </body>
 <script>
+    var sound = new Audio('sound/beep-07.wav');
+
     var vm = new Vue({
         el: '#voca-test',
         data: {
@@ -130,6 +166,10 @@
         methods: {
             requestTestData: function () {
                 var self = this;
+                console.log('end :', self.end);
+                if (self.end > 50) {
+                    self.end = 50;
+                }
                 var requestUrl = function () {
                     var url = '/api/books/' + self.bookId + '/vocas' + '?start=' + self.start + '&end=' + self.end;
                     if (self.includeDerivative) {
@@ -149,12 +189,17 @@
                         self.step = 'ready';
                         self.vocaList = response.data;
                         console.log(self.vocaList);
+                        if(self.vocaList.length <= 0){
+                            alert('입력 오류');
+                            window.location.reload();
+                        }
                     })
                     .catch(function (error) {
                         self.answer = '에러! API 요청에 오류가 있습니다. ' + error
                     })
             },
             startTest: function () {
+                sound.play().then();
                 this.step = 'progress';
                 var self = this;
                 var start = setInterval(function () {
@@ -163,8 +208,9 @@
                         self.step = 'end';
                         return;
                     }
+                    sound.play().then();
                     self.index++;
-                }, 100);
+                }, 1000);
             },
             openCorrectAnswer: function () {
                 this.step = 'openCorrectAnswer';
