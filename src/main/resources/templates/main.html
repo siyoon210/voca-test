@@ -190,50 +190,24 @@
                         url += '&size=' + this.size;
                     }
 
-                    return url;
-                };
+    var domain = "http://localhost:8080";
+    var tmpBookId = 1;
+    var $requestDataBtn = $('[data-evt-bind="requestData"]');
 
-                console.log(requestUrl());
-                axios.get(requestUrl())
-                    .then(function (response) {
-                        console.log(response);
-                        self.step = 'ready';
-                        self.vocaList = response.data;
-                        console.log(self.vocaList);
-                        if(self.vocaList.length <= 0){
-                            alert('입력 오류');
-                            window.location.reload();
-                        }
-                    })
-                    .catch(function (error) {
-                        self.answer = '에러! API 요청에 오류가 있습니다. ' + error
-                    })
-            },
-            startTest: function () {
-                $('#start-btn').hide();
-                var $this = this;
+    $requestDataBtn.on('click', function () {
+        var start = $('#start').val();
+        var end = $('#end').val();
+        console.log(this.headers);
 
-                setTimeout(function () {
-                    sound.play().then();
-                    $this.step = 'progress';
-                    var self = $this;
-                    var start = setInterval(function () {
-                        if (self.index >= self.vocaList.length - 1) {
-                            clearInterval(start);
-                            self.step = 'end';
-                            return;
-                        }
-                        sound.play().then();
-                        self.index++;
-                    }, 7000);
-                }, 3000);
-            },
-            openCorrectAnswer: function () {
-                $('#start-btn').show();
-                this.step = 'openCorrectAnswer';
-            }
-        }
-    })
+        $.ajax({
+            url: domain + '/api/books/' + tmpBookId + '/vocas' + '?start=' + start + '&end=' + end,
+            method: "get"
+        }).done(function (res) {
+            console.log('SUCCESS', res[0]);
+        }).fail(function (res) {
+            console.log('ERROR', res);
+        });
+    });
 </script>
 
 <!-- jQuery -->
