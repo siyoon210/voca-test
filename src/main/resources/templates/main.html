@@ -16,6 +16,10 @@
     <script src="../static/js/jquery.min.js"></script>
     <!-- jsRender -->
     <script src="../static/js/jsrender.min.js"></script>
+    <!-- jsViews -->
+    <script src="../static/js/jsviews.min.js"></script>
+
+    <link rel="import" href="range-select.html">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -36,49 +40,14 @@
 </head>
 <body class="container"></body>
 
-<script id="range-select" type="text/html">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <form class="fh5co-form">
-                <h2>범위 선택</h2>
-                <div class="form-group col-xs-6">
-                    <label for="start" class="sr-only">시작</label>
-                    <input type="number" class="form-control" id="start" placeholder="시작">
-                </div>
-                <div class="form-group col-xs-6">
-                    <label for="end" class="sr-only">끝</label>
-                    <input type="number" class="form-control" id="end" placeholder="끝">
-                </div>
-                <div class="form-group col-xs-12">
-                    <label for="derivative"><input type="checkbox" id="derivative"> 파생어
-                        포함</label>
-                </div>
-                <div class="form-group">
-                    <input data-evt-bind="requestData" type="button" value="선택" class="btn btn-primary">
-                </div>
-            </form>
-        </div>
-    </div>
-</script>
-
 <script>
-    $(window).load(function () {
-        console.log('load');
-        var tmpl = $.templates("#range-select");
-        var html = tmpl.render();
-        console.log(html);
-        $('body').html(html);
+    var domain = "http://localhost:8080";
+    var tmpBookId = 1;
 
-        var $requestDataBtn = $('[data-evt-bind="requestData"]');
-
-        var domain = "http://localhost:8080";
-        var tmpBookId = 1;
-
-
-        $requestDataBtn.on('click', function () {
+    var event = {
+        requestData: function() {
             var start = $('#start').val();
             var end = $('#end').val();
-            console.log(this.headers);
 
             $.ajax({
                 url: domain + '/api/books/' + tmpBookId + '/vocas' + '?start=' + start + '&end=' + end,
@@ -88,8 +57,27 @@
             }).fail(function (res) {
                 console.log('ERROR', res);
             });
-        });
+        }
+    };
+
+    $(window).load(function () {
+        console.log('load');
+
+        renderRangeSelectHtml()
+            .then(function (data) {
+                var tmpl = $.templates(data);
+                tmpl.link('body', null, event);
+            });
     });
+
+    function renderRangeSelectHtml() {
+        return new Promise(function (resolve, reject) {
+            $.get('range-select.html', function (response) {
+                resolve(response);
+                reject(response);
+            });
+        });
+    }
 </script>
 
 <!-- Bootstrap -->
