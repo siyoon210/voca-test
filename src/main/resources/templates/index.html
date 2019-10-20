@@ -19,8 +19,6 @@
     <!-- jsViews -->
     <script src="../static/js/jsviews.min.js"></script>
 
-    <link rel="import" href="range-select.html">
-
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" href="favicon.ico">
 
@@ -38,10 +36,31 @@
     <script src="../static/js/respond.min.js"></script>
     <![endif]-->
 </head>
+<style>
+    @media (max-width: 700px) {
+        .voca-text{
+            font-size: 4.5em;
+        }
+    }
+
+    @media (min-width: 700px) {
+        .voca-text{
+            font-size: 5em;
+        }
+    }
+
+    @media (min-width: 800px) {
+        .voca-text{
+            font-size: 6em;
+        }
+    }
+</style>
+
 <body class="container"></body>
 
 <script>
     (function () {
+        const newVocaSound = new Audio('../static/sound/ARROW.WAV');
         const domain = "http://localhost:8080";
 
         const data = {
@@ -62,8 +81,8 @@
                 data.includeDerivative = $('#derivative').prop('checked');
 
                 const url = function () {
-                    let url =  domain + '/api/books/' + data.bookId + '/vocas'
-                    + '?start=' + data.start + '&end=' + data.end;
+                    let url = domain + '/api/books/' + data.bookId + '/vocas'
+                        + '?start=' + data.start + '&end=' + data.end;
 
                     if (data.includeDerivative) {
                         url += '&derivative=true';
@@ -76,17 +95,46 @@
                     url: url,
                     method: "get"
                 }).done(function (res) {
-                    console.log('SUCCESS', res[0]);
+                    data.vocaList = res;
                     window.location.hash = '#ready';
                 }).fail(function (res) {
                     console.log('ERROR', res);
                 });
+            },
+            startTest: function () {
+                $('#start-btn').hide();
+
+                delayBeforeTest()
+                    .then(slideVocas);
+
+                function delayBeforeTest() {
+                    return new Promise(function (resolve) {
+                        setTimeout(function () {
+                            resolve();
+                        }, 1000)
+                    });
+                }
+
+                function slideVocas() {
+                    newVocaSound.play().then();
+                    window.location.hash = '#progress';
+
+                    const testInterval = setInterval(function () {
+                        if (data.index >= data.vocaList.length - 1) {
+                            clearInterval(testInterval);
+                            return;
+                        }
+                        newVocaSound.play().then();
+                        get('progress.html')
+                            .then(template => render(template));
+                        data.index++;
+                    }, 1000);
+                }
             }
         };
 
-        function render(template, appendTarget) {
-            console.log(data);
-            $.templates(template).link(appendTarget || 'body', data, eventHandlers);
+        function render(template) {
+            $.templates(template).link('body', data, eventHandlers);
         }
 
         function get(url) {
@@ -105,6 +153,10 @@
             },
             'ready': function () {
                 get('ready.html')
+                    .then(template => render(template));
+            },
+            'progress': function () {
+                get('progress.html')
                     .then(template => render(template));
             },
             otherwise() {
