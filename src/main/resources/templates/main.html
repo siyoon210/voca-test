@@ -43,25 +43,49 @@
 <script>
     (function () {
         const domain = "http://localhost:8080";
-        const tmpBookId = 1;
+
+        const data = {
+            index: 0,
+            step: 'form',
+            bookId: 1,
+            start: null,
+            end: null,
+            includeDerivative: false,
+            size: undefined,
+            vocaList: []
+        };
 
         const eventHandlers = {
             requestData: function () {
-                const start = $('#start').val();
-                const end = $('#end').val();
+                data.start = $('#start').val();
+                data.end = $('#end').val();
+                data.includeDerivative = $('#derivative').prop('checked');
+
+                const url = function () {
+                    let url =  domain + '/api/books/' + data.bookId + '/vocas'
+                    + '?start=' + data.start + '&end=' + data.end;
+
+                    if (data.includeDerivative) {
+                        url += '&derivative=true';
+                    }
+
+                    return url;
+                }();
 
                 $.ajax({
-                    url: domain + '/api/books/' + tmpBookId + '/vocas' + '?start=' + start + '&end=' + end,
+                    url: url,
                     method: "get"
                 }).done(function (res) {
                     console.log('SUCCESS', res[0]);
+                    window.location.hash = '#ready';
                 }).fail(function (res) {
                     console.log('ERROR', res);
                 });
             }
         };
 
-        function render(template, appendTarget, data) {
+        function render(template, appendTarget) {
+            console.log(data);
             $.templates(template).link(appendTarget || 'body', data, eventHandlers);
         }
 
@@ -79,9 +103,9 @@
                 get('range-select.html')
                     .then(template => render(template));
             },
-            'service': function () {
-                get('/data/service.json')
-                    .then(res => render(res));
+            'ready': function () {
+                get('ready.html')
+                    .then(template => render(template));
             },
             otherwise() {
                 root.innerHTML = `${location.hash} Not Found`;
@@ -93,9 +117,8 @@
             (routes[hash] || routes.otherwise)();
         }
 
-        $(window)
-            .bind('hashchange', router)
-            .bind('DOMContentLoaded', router);
+        $(window).bind('hashchange', router);
+        $(window).bind('DOMContentLoaded', router);
     }());
 </script>
 
