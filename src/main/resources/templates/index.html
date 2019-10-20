@@ -20,7 +20,7 @@
     <script src="../static/js/jsviews.min.js"></script>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <!--    <link rel="shortcut icon" href="favicon.ico">-->
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
@@ -98,6 +98,11 @@
                 $.get(url)
                     .done(function (res) {
                         data.vocaList = res;
+                        if (data.vocaList.length <= 0) {
+                            alert('조회 실패');
+                            window.location.reload();
+                            return;
+                        }
                         location.hash = '#ready';
                     })
                     .fail(function (res) {
