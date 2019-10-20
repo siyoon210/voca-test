@@ -41,51 +41,28 @@
 <body class="container"></body>
 
 <script>
-    var domain = "http://localhost:8080";
-    var tmpBookId = 1;
-
-    var event = {
-        requestData: function() {
-            var start = $('#start').val();
-            var end = $('#end').val();
-
-            $.ajax({
-                url: domain + '/api/books/' + tmpBookId + '/vocas' + '?start=' + start + '&end=' + end,
-                method: "get"
-            }).done(function (res) {
-                console.log('SUCCESS', res[0]);
-            }).fail(function (res) {
-                console.log('ERROR', res);
-            });
-        }
-    };
-
-    $(window).load(function () {
-        console.log('load');
-
-        renderRangeSelectHtml()
-            .then(function (data) {
-                var tmpl = $.templates(data);
-                tmpl.link('body', null, event);
-            });
-    });
-
-    // function renderRangeSelectHtml() {
-    //     return new Promise(function (resolve, reject) {
-    //         $.get('range-select.html', function (response) {
-    //             resolve(response);
-    //             reject(response);
-    //         });
-    //     });
-    // }
-
     (function () {
-        function render(data) {
-            const json = JSON.parse(data);
-            root.innerHTML = `<h1>${json.title}</h1><p>${json.content}</p>`;
+        const domain = "http://localhost:8080";
+        const tmpBookId = 1;
 
-            const tmpl = $.templates(data);
-            tmpl.link('body', null, event);
+        const eventHandlers = {
+            requestData: function () {
+                const start = $('#start').val();
+                const end = $('#end').val();
+
+                $.ajax({
+                    url: domain + '/api/books/' + tmpBookId + '/vocas' + '?start=' + start + '&end=' + end,
+                    method: "get"
+                }).done(function (res) {
+                    console.log('SUCCESS', res[0]);
+                }).fail(function (res) {
+                    console.log('ERROR', res);
+                });
+            }
+        };
+
+        function render(template, appendTarget, data) {
+            $.templates(template).link(appendTarget || 'body', data, eventHandlers);
         }
 
         function get(url) {
@@ -100,15 +77,11 @@
         const routes = {
             '': function () {
                 get('range-select.html')
-                    .then(res => render(res));
+                    .then(template => render(template));
             },
             'service': function () {
                 get('/data/service.json')
                     .then(res => render(res));
-            },
-            'about': function () {
-                get('/data/about.html')
-                    .then(res => renderHtml(res));
             },
             otherwise() {
                 root.innerHTML = `${location.hash} Not Found`;
@@ -120,11 +93,9 @@
             (routes[hash] || routes.otherwise)();
         }
 
-        // 내비게이션을 클릭하면 uri의 hash가 변경된다. 주소창의 uri가 변경되므로 history 관리가 가능하다.
-        // 이때 uri의 hash만 변경되면 서버로 요청을 수행하지 않는다.
-        // 따라서 uri의 hash가 변경하면 발생하는 이벤트인 hashchange 이벤트를 사용하여 hash의 변경을 감지하여 필요한 AJAX 요청을 수행한다.
-        // hash 방식의 단점은 uri에 불필요한 #이 들어간다는 것이다.
-        $(window).bind( 'hashchange', function(){});
+        $(window)
+            .bind('hashchange', router)
+            .bind('DOMContentLoaded', router);
     }());
 </script>
 
@@ -136,4 +107,5 @@
 <script src="../static/js/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
 <script src="../static/js/main.js"></script>
+
 </html>
