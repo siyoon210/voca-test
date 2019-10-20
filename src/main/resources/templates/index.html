@@ -196,7 +196,10 @@
 
         $(window)
             .bind('hashchange', router)
-            .bind('DOMContentLoaded', router);
+            .bind('DOMContentLoaded', function () {
+                location.hash = '';
+                router();
+            });
     }());
 </script>
 
