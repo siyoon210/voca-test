@@ -38,19 +38,19 @@
 </head>
 <style>
     @media (max-width: 700px) {
-        .voca-text{
+        .voca-text {
             font-size: 4.5em;
         }
     }
 
     @media (min-width: 700px) {
-        .voca-text{
+        .voca-text {
             font-size: 5em;
         }
     }
 
     @media (min-width: 800px) {
-        .voca-text{
+        .voca-text {
             font-size: 6em;
         }
     }
@@ -64,14 +64,16 @@
         const domain = "http://localhost:8080";
 
         const data = {
-            index: 0,
-            step: 'form',
             bookId: 1,
             start: null,
             end: null,
             includeDerivative: false,
             size: undefined,
-            vocaList: []
+            vocaList: [],
+            progress: {
+                index: 0,
+                english : ''
+            }
         };
 
         const eventHandlers = {
@@ -91,15 +93,14 @@
                     return url;
                 }();
 
-                $.ajax({
-                    url: url,
-                    method: "get"
-                }).done(function (res) {
-                    data.vocaList = res;
-                    window.location.hash = '#ready';
-                }).fail(function (res) {
-                    console.log('ERROR', res);
-                });
+                $.get(url)
+                    .done(function (res) {
+                        data.vocaList = res;
+                        window.location.hash = '#ready';
+                    })
+                    .fail(function (res) {
+                        console.log('ERROR', res);
+                    });
             },
             startTest: function () {
                 $('#start-btn').hide();
@@ -117,17 +118,20 @@
 
                 function slideVocas() {
                     newVocaSound.play().then();
+                    $.observable(data).setProperty('progress.english', data.vocaList[data.progress.index].english);
                     window.location.hash = '#progress';
 
                     const testInterval = setInterval(function () {
-                        if (data.index >= data.vocaList.length - 1) {
+                        if (data.progress.index > data.vocaList.length - 1) {
                             clearInterval(testInterval);
                             return;
                         }
                         newVocaSound.play().then();
-                        get('progress.html')
-                            .then(template => render(template));
-                        data.index++;
+                        data.progress.index++;
+                        $.observable(data).setProperty('progress', {
+                            index: data.progress.index,
+                            english: data.vocaList[data.progress.index].english
+                        });
                     }, 1000);
                 }
             }
