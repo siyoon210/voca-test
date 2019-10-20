@@ -72,7 +72,7 @@
             vocaList: [],
             progress: {
                 index: 0,
-                english : ''
+                english : null
             }
         };
 
@@ -122,8 +122,9 @@
                     window.location.hash = '#progress';
 
                     const testInterval = setInterval(function () {
-                        if (data.progress.index > data.vocaList.length - 1) {
+                        if (data.progress.index >= data.vocaList.length || location.hash !== '#progress') {
                             clearInterval(testInterval);
+                            data.progress.index = 0;
                             return;
                         }
                         newVocaSound.play().then();
