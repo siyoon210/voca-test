@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="fh5co-form" data-animate-effect="fadeIn">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">단어</th>
+                    <th scope="col">정답</th>
+                    <th scope="col">파생어</th>
+                    <th scope="col">챕터</th>
+                </tr>
+                </thead>
+                <tbody>
+                {^{for vocaList}}
+                <tr>
+                    <td>{^{:#index + 1}}</td>
+                    <td>
+                        <a data-link="href{:'https://endic.naver.com/search.nhn?sLn=kr&query=' + english}">{^{:english}}</a>
+                    </td>
+                    <td>{^{:korean}}</td>
+                    <td>{^{:derivative}}</td>
+                    <td>{^{:chapterName}}</td>
+                </tr>
+                {{/for}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 15px" class="row">
+    <div class="col-md-12 text-center">
+        <ul class="menu">
+            <li><a href="#">범위 선택 화면으로</a></li>
+        </ul>
+    </div>
+</div>
