@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VocaTestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VocaTestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(VocaTestApplication.class, args);
+    }
 
 }
