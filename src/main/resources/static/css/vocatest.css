@@ -1,0 +1,17 @@
+@media (max-width: 700px) {
+    .voca-text {
+        font-size: 4.5em;
+    }
+}
+
+@media (min-width: 700px) {
+    .voca-text {
+        font-size: 5em;
+    }
+}
+
+@media (min-width: 800px) {
+    .voca-text {
+        font-size: 6em;
+    }
+}
