@@ -23,7 +23,7 @@
 
 <script>
     (function () {
-        const newVocaSound = new Audio('../static/sound/ARROW.WAV');
+        const slideSound = new Audio('../static/sound/ARROW.WAV');
         const domain = "http://localhost:8080";
         const delayBeforeTestMiliSec = 3000; // 3000
         const testIntervalMiliSec = 4000; //7000
@@ -109,12 +109,18 @@
                             index: data.progress.index,
                             english: data.vocaList[data.progress.index].english
                         });
-                        newVocaSound.play().then();
+                        slideSound.play().then();
                     }
                 }
             },
             openCorrectAnswer: function () {
                 location.hash = '#correctAnswer'
+            },
+            manageVocas: function () {
+                location.hash = '#manageVocas'
+            },
+            addVocas: function () {
+                location.hash = '#manageVocas'
             }
         };
 
@@ -149,7 +155,11 @@
                     .then(template => render(template));
             },
             'correctAnswer': function () {
-                get('correctAnswer.html')
+                get('correct-answer.html')
+                    .then(template => render(template));
+            },
+            'manageVocas': function () {
+                get('manage-vocas.html')
                     .then(template => render(template));
             },
             otherwise() {
