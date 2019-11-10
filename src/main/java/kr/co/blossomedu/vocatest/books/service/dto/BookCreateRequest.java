@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class BookCreateRequest {
-
     private String name;
+    private MultipartFile[] files;
 
     public BookCreateRequest(final String name) {
         this.name = name;
