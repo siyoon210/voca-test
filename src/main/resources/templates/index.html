@@ -125,8 +125,9 @@
 
                 let data = new FormData(form);
 
-                data.append("name", "This is some extra data, testing");
-                console.log('data', data.name);
+                data.append("file", $("#file1")[0].files[0]);
+                data.append("name", data.get("file").name);
+                console.log('data ->', data);
 
                 $("#btnSubmit").prop("disabled", true);
 
